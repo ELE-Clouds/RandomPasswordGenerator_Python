@@ -4,8 +4,11 @@ import os
 
 
 strABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+strabc = 'abcdefghijklmnopqrstuvwxyz'
 str123 = '1234567890'
-strOther = '!-_'
+strOther = '~!@#$%^&*()_+{}|?></][\=-`'
+lstDefault = [strABC,strabc,str123,strOther]
+
 '''*************************
 函数名：getRandString
 功能描述：随机返回一个选定的字符
@@ -16,21 +19,14 @@ strOther = '!-_'
 　　_str123：　存放数字的函数变量
 　　_strOther：特殊字符变量
 
-
-
 *************************'''
-def getRandString(_lstRandSelect,_strABC='',_strabc='',_str123='',_strOther=''):
-    if _strABC == '':
-        _strABC=strABC
-    if _strabc == '':
-        _strabc = strABC.lower()
-    if _str123 == '':
-        _str123 = str123
-    if _strOther == '':
-        _strOther = strOther
-
+def getRandString(_lstRandSelect,_strABC = strABC,_strabc = strabc,_str123 = str123,_strOther = strOther):
     #所有字符集中在一个list中，方便调用
     lstString = [_strABC,_strabc,_str123,_strOther]
+    #若参数为空或None，则将当前参数设置为默认值。
+    for i in range(4):
+        if lstString[i] == '' or lstString[i] == None:
+            lstString[i] = lstDefault[i]
     while True:
         #随机选择一个分类
         iRandSelectClass = rd.randint(0,3)
@@ -69,18 +65,30 @@ def setFirstS(_strPass):
     return(_strPass)
 
 
+'''*************************
+函数名：getRandPass
+功能描述：获取完整随机密码
+参数：
+　　_lstPassCS：密码生成参数，供getRandString函数使用
+    _iNum：密码长度
+
+*************************'''
+
+def getRandPass(_lstPassCS,_iNum):
+    strPass = ''
+    for i in range(_iNum):
+        strPass += getRandString(_lstPassCS[0], _lstPassCS[1], _lstPassCS[2], _lstPassCS[3],_lstPassCS[4])
+    return strPass
 
 
-#lstRandSelect=[True,True,True,True]
-lstRandSelect=[True,True,True,False]
-lstPassWord=[]
-strPassWord=""
-for j in range(10):
-    for i in range(8):
-        lstPassWord.append(getRandString(lstRandSelect))
-    lstPassWord = setFirstU(lstPassWord)
-    for k in lstPassWord:
-        strPassWord = strPassWord+k
-    print(strPassWord)
-    lstPassWord=[]
-    strPassWord=''
+# 测试代码
+lstLeft = [(True,False,False,False),None,None,None,'!_-']
+lstCenter = [(True,True,True,False),None,None,None,'!_-']
+lstRight = [(False,False,False,True),None,None,None,'!_-']
+strPassView=""
+for i in range(20):
+    strLeft = getRandPass(lstLeft,3)
+    strCenter = getRandPass(lstCenter, 10)
+    strRight = getRandPass(lstRight, 3)
+    strPassView = strLeft + strCenter + strRight
+    print(strPassView)
