@@ -1,3 +1,4 @@
+'''文件名：randfunction.py'''
 import random as rd
 import os
 
