@@ -18,7 +18,6 @@ strOther = '!-_'
 
 
 *************************'''
-
 def getRandString(_lstRandSelect,_strABC='',_strabc='',_str123='',_strOther=''):
     if _strABC == '':
         _strABC=strABC
@@ -42,13 +41,26 @@ def getRandString(_lstRandSelect,_strABC='',_strabc='',_str123='',_strOther=''):
     return(lstString[iRandSelectClass][iRandSelectNum])
 
 
+'''*************************
+函数名：setFirstU
+功能描述：设置开头字母小写
+参数：
+　　_strPass：需要设置的字符串（密码文本）
 
+*************************'''
 # 设置开头为大写字母
 def setFirstU(_strPass):
     lstSelect = [True,False,False,False]
     _strPass[0] = getRandString(lstSelect)
     return(_strPass)
 
+'''*************************
+函数名：setFirstS
+功能描述：设置开头字母小写
+参数：
+　　_strPass：需要设置的字符串（密码文本）
+
+*************************'''
 # 设置开头为小写字母
 def setFirstS(_strPass):
     lstSelect = [False,True,False,False]
